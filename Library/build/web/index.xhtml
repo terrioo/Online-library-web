@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view locale="#{localeChanger.currentLocale}">  
+        <h:head>
+            <title>#{msg.welcome_title}</title>
+            <h:outputStylesheet library="css" name="style_index.css"  />
+            <h:outputScript library="js" name="library.js" target="head"/>
+        </h:head>
+        <h:body>
+
+            <noscript>
+                <h4><p>#{msg.enable_js}</p></h4>
+
+
+                <style type="text/css">
+                    .main { display:none; }
+                    p { text-align: center; }
+                </style>
+
+            </noscript>
+            <div class="main">
+
+
+                <ui:include src="/templates/locales.xhtml"/>
+
+                <div class="content">
+                    <p class="title"><h:graphicImage library="images" name="lib.png" /></p>
+                    <p class="title"><h:outputText id="lib_title" value="#{msg.index_title}"/></p>
+                </div>
+
+
+                <h:panelGroup id="login_div" styleClass="login_div" layout="block">
+
+
+
+                    <h:form styleClass="login_form" id="login_form">
+
+                        <table align="left" width="350">
+                            <tr>
+                                <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_name}</td>
+
+                                <td width="200"><h:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{msg.login_required}">
+                                       
+                                    </h:inputText>
+                                </td>
+
+                                <td width="100" >
+                                    <div id="loading_wrapper">
+                                        <h:graphicImage library="images" name="ajax_loading.gif"/> 
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="left"><span style="color:red;">*</span> #{msg.input_password}</td>
+                                <td><h:inputSecret  id="password" value="#{user.password}" required="true" redisplay="true" requiredMessage="#{msg.password_required}">
+                                    </h:inputSecret></td>
+
+                            </tr><tr>
+
+                                <td colspan="3">
+                                    <h:commandButton action="#{user.login()}" value="#{msg.entry}" styleClass="login_button" onclick="return checkValue(this.form, '#{msg.login_required}');">
+                                        <f:ajax onevent="showProgress" execute="@form" render="@form" />
+
+                                    </h:commandButton>
+
+
+                                </td>
+
+
+
+                            </tr> 
+                            <tr><td colspan="3">
+                                    <h:message id="loginError" for="login_form" styleClass="error"/>
+                                    <h:message id="username_input" for="username" styleClass="error"/>
+                                </td>
+
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                    </h:form>
+
+
+                </h:panelGroup>
+
+            </div>
+
+
+        </h:body>
+    </f:view>  
+</html>
+
